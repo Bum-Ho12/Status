@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:status_saver/pre_layers/theme_manager.dart';
+import 'package:status_saver/screens/download_folder.dart';
+import 'package:status_saver/screens/settings.dart';
 import 'package:status_saver/widgets/staggered_grid_viewer.dart';
 
 void main() {
@@ -35,12 +38,27 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         title: Text(widget.title),
-        titleTextStyle: Theme.of(context).appBarTheme.titleTextStyle,
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.account_circle)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const FolderStaggeredGrid()));
+              },
+              icon: const Icon(Icons.folder_open_sharp)),
+          IconButton(
+              onPressed: () {
+                Share.share('Status Downloader');
+              },
+              icon: const Icon(Icons.share)),
+          IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Settings()));
+              },
+              icon: const Icon(Icons.settings)),
         ],
       ),
       body: const Center(
