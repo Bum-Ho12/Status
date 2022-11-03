@@ -17,11 +17,11 @@ class VideoContainer extends StatefulWidget {
 }
 
 class _VideoContainerState extends State<VideoContainer> {
-  @override
-  void initState() {
-    super.initState();
-    generateThumbnail();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   generateThumbnail();
+  // }
 
   Uint8List? _thumbnailData;
 
@@ -36,7 +36,7 @@ class _VideoContainerState extends State<VideoContainer> {
     return videoThumbnailFile;
   }
 
-  void generateThumbnail() async {
+  Future<void> generateThumbnail() async {
     File videoTempFile2 = await copyAssetFile(widget.videoPlayed);
     try {
       _thumbnailData = await VideoThumbnail.thumbnailData(
@@ -53,46 +53,56 @@ class _VideoContainerState extends State<VideoContainer> {
 
   @override
   Widget build(BuildContext context) {
-    return _thumbnailData != null
-        ? Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Theme.of(context).hoverColor),
-            constraints: const BoxConstraints(
-                maxHeight: 300, minHeight: 200, maxWidth: 200, minWidth: 170),
-            child: Stack(alignment: Alignment.center, children: [
-              Image.memory(
-                _thumbnailData!,
-                fit: BoxFit.cover,
-              ),
-              InkWell(
-                  onTap: () {},
-                  child: const CircleAvatar(
-                      foregroundColor: Colors.white,
-                      backgroundColor: Color(0xfF128C7E),
-                      child: Icon(Icons.play_arrow))),
-              widget.mainScreen
-                  ? Positioned(
-                      bottom: 20,
-                      right: 10,
-                      child: InkWell(
-                          onTap: () {},
-                          child: const CircleAvatar(
-                              foregroundColor: Colors.white,
-                              backgroundColor: Color(0xfF128C7E),
-                              child: Icon(Icons.arrow_downward_rounded))),
-                    )
-                  : const SizedBox(),
-            ]))
-        : Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Theme.of(context).hoverColor),
-            constraints: const BoxConstraints(
-                maxHeight: 250, minHeight: 200, maxWidth: 200, minWidth: 170),
-            child: const Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
+    return FutureBuilder(
+        future: generateThumbnail(),
+        builder: (context, snapshot) {
+          return _thumbnailData != null
+              ? Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Theme.of(context).hoverColor),
+                  constraints: const BoxConstraints(
+                      maxHeight: 300,
+                      minHeight: 200,
+                      maxWidth: 200,
+                      minWidth: 170),
+                  child: Stack(alignment: Alignment.center, children: [
+                    Image.memory(
+                      _thumbnailData!,
+                      fit: BoxFit.cover,
+                    ),
+                    InkWell(
+                        onTap: () {},
+                        child: const CircleAvatar(
+                            foregroundColor: Colors.white,
+                            backgroundColor: Color(0xfF128C7E),
+                            child: Icon(Icons.play_arrow))),
+                    widget.mainScreen
+                        ? Positioned(
+                            bottom: 20,
+                            right: 10,
+                            child: InkWell(
+                                onTap: () {},
+                                child: const CircleAvatar(
+                                    foregroundColor: Colors.white,
+                                    backgroundColor: Color(0xfF128C7E),
+                                    child: Icon(Icons.arrow_downward_rounded))),
+                          )
+                        : const SizedBox(),
+                  ]))
+              : Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Theme.of(context).hoverColor),
+                  constraints: const BoxConstraints(
+                      maxHeight: 250,
+                      minHeight: 200,
+                      maxWidth: 200,
+                      minWidth: 170),
+                  child: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+        });
   }
 }

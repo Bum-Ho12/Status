@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:status_saver/widgets/image_container.dart';
 import 'package:mime/mime.dart';
-import 'package:status_saver/widgets/video_player.dart';
+import '../widgets/video_container.dart';
 
 class FolderStaggeredGrid extends StatefulWidget {
   const FolderStaggeredGrid({super.key});
@@ -60,13 +60,12 @@ class _FolderStaggeredGridState extends State<FolderStaggeredGrid> {
               if (fileType![0] == 'image') {
                 return PicContainer(
                   image: imageList[index],
-                  maxHeight: 250, //(index % 5 + 1) * 100,
+                  maxHeight: 250,
                   mainScreen: mainScreen,
                 );
               } else {
-                return VideoShowPlayer(
-                    videoPlayerController: imageList[index],
-                    mainscreen: mainScreen);
+                return VideoContainer(
+                    videoPlayed: imageList[index], mainScreen: mainScreen);
               }
             },
           ),
