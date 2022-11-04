@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:status_saver/screens/video_player.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 // ignore: depend_on_referenced_packages
 import 'package:path_provider/path_provider.dart';
@@ -17,12 +18,6 @@ class VideoContainer extends StatefulWidget {
 }
 
 class _VideoContainerState extends State<VideoContainer> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   generateThumbnail();
-  // }
-
   Uint8List? _thumbnailData;
 
   Future<File> copyAssetFile(String assetFileName) async {
@@ -47,6 +42,7 @@ class _VideoContainerState extends State<VideoContainer> {
         quality: 25,
       );
     } catch (e) {
+      // ignore: avoid_print
       print(e);
     }
   }
@@ -61,18 +57,26 @@ class _VideoContainerState extends State<VideoContainer> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: Theme.of(context).hoverColor),
-                  constraints: const BoxConstraints(
-                      maxHeight: 300,
-                      minHeight: 200,
-                      maxWidth: 200,
-                      minWidth: 170),
+                  constraints:
+                      const BoxConstraints(maxHeight: 250, maxWidth: 200),
                   child: Stack(alignment: Alignment.center, children: [
-                    Image.memory(
-                      _thumbnailData!,
-                      fit: BoxFit.cover,
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.memory(
+                        _thumbnailData!,
+                        fit: BoxFit.fill,
+                      ),
                     ),
                     InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => VideoShowPlayer(
+                                        videoPlayerController:
+                                            widget.videoPlayed,
+                                      )));
+                        },
                         child: const CircleAvatar(
                             foregroundColor: Colors.white,
                             backgroundColor: Color(0xfF128C7E),
