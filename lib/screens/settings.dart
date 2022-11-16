@@ -9,14 +9,6 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  // bool darkMode = false;
-  // ThemeClass theme = ThemeClass.lightTheme as ThemeClass;
-
-  // Future getTheme() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,20 +18,11 @@ class _SettingsState extends State<Settings> {
               Navigator.pop(context);
             },
             icon: const Icon(Icons.arrow_back_ios)),
-        title: const Text('Settings'),
+        title: const Text('Help Center'),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Column(children: [
-          // SwitchListTile(
-          //   value: darkMode,
-          //   onChanged: (value) {
-          //     setState(() {
-          //       darkMode = value;
-          //     });
-          //   },
-          //   title: const Text('Dark Theme'),
-          // ),
           ListTile(
             onTap: () {
               Navigator.push(context,

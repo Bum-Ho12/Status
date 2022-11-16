@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pie_menu/pie_menu.dart';
 import 'package:status_saver/screens/video_player.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 // ignore: depend_on_referenced_packages
@@ -60,13 +62,33 @@ class _VideoContainerState extends State<VideoContainer> {
                   constraints:
                       const BoxConstraints(maxHeight: 250, maxWidth: 200),
                   child: Stack(alignment: Alignment.center, children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Image.memory(
-                        _thumbnailData!,
-                        fit: BoxFit.fill,
-                      ),
-                    ),
+                    widget.mainScreen
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Image.memory(
+                              _thumbnailData!,
+                              fit: BoxFit.fill,
+                            ),
+                          )
+                        : PieMenu(
+                            actions: [
+                              PieAction(
+                                  tooltip: 'share',
+                                  onSelect: () {},
+                                  child: const FaIcon(Icons.share)),
+                              PieAction(
+                                  tooltip: 'Delete',
+                                  onSelect: () {},
+                                  child: const FaIcon(Icons.delete)),
+                            ],
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Image.memory(
+                                _thumbnailData!,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ),
                     InkWell(
                         onTap: () {
                           Navigator.push(
@@ -95,14 +117,11 @@ class _VideoContainerState extends State<VideoContainer> {
                         : const SizedBox(),
                   ]))
               : Container(
+                  height: 250,
+                  width: 200,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: Theme.of(context).hoverColor),
-                  constraints: const BoxConstraints(
-                      maxHeight: 250,
-                      minHeight: 200,
-                      maxWidth: 200,
-                      minWidth: 170),
                   child: const Center(
                     child: CircularProgressIndicator(),
                   ),

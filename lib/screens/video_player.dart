@@ -15,39 +15,14 @@ class VideoShowPlayer extends StatefulWidget {
 }
 
 class _VideoShowPlayerState extends State<VideoShowPlayer> {
-  late ChewieController _chewieController;
+  late ChewieController chewieVideo;
 
-  Future<void> createPlayer() async {
-    try {
-      VideoPlayerController videoplayer =
-          VideoPlayerController.asset(widget.videoPlayerController);
-      _chewieController = ChewieController(
-        videoPlayerController: videoplayer,
-        aspectRatio: 5 / 8,
-        autoPlay: true,
+  Future<void> initializeFlicker() async {
+    chewieVideo = ChewieController(
+        videoPlayerController:
+            VideoPlayerController.asset(widget.videoPlayerController),
         autoInitialize: true,
-        errorBuilder: (context, errorMessage) {
-          return Center(
-            child: Text(
-              errorMessage,
-              style: Theme.of(context).appBarTheme.titleTextStyle,
-            ),
-          );
-        },
-      );
-    } catch (e) {
-      SnackBar snack = SnackBar(
-        content: Text('$e'),
-        padding: const EdgeInsets.all(8.0),
-        dismissDirection: DismissDirection.horizontal,
-        action: SnackBarAction(
-            label: 'Dismiss',
-            onPressed: () {
-              Navigator.pop(context);
-            }),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snack);
-    }
+        aspectRatio: 5 / 6);
   }
 
   @override
@@ -59,19 +34,15 @@ class _VideoShowPlayerState extends State<VideoShowPlayer> {
               Navigator.pop(context);
             },
             icon: const Icon(Icons.arrow_back_ios)),
+        actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.share)),
+        ],
       ),
       body: FutureBuilder(
-          future: createPlayer(),
+          future: initializeFlicker(),
           builder: (context, snapshot) {
             return Center(
-              child: Container(
-                constraints: BoxConstraints(
-                    maxHeight: 250,
-                    maxWidth: MediaQuery.of(context).size.width),
-                child: Chewie(
-                  controller: _chewieController,
-                ),
-              ),
+              child: Chewie(controller: chewieVideo),
             );
           }),
     );
@@ -79,7 +50,7 @@ class _VideoShowPlayerState extends State<VideoShowPlayer> {
 
   @override
   void dispose() {
-    _chewieController.dispose();
+    chewieVideo.dispose();
     super.dispose();
   }
 }
