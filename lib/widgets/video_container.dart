@@ -44,8 +44,7 @@ class _VideoContainerState extends State<VideoContainer> {
         quality: 25,
       );
     } catch (e) {
-      // ignore: avoid_print
-      print(e);
+      return;
     }
   }
 
@@ -56,11 +55,12 @@ class _VideoContainerState extends State<VideoContainer> {
         builder: (context, snapshot) {
           return _thumbnailData != null
               ? Container(
+                  // padding: const EdgeInsets.all(5),
+                  // height: 200,
+                  // width: 200,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: Theme.of(context).hoverColor),
-                  constraints:
-                      const BoxConstraints(maxHeight: 250, maxWidth: 200),
                   child: Stack(alignment: Alignment.center, children: [
                     widget.mainScreen
                         ? ClipRRect(

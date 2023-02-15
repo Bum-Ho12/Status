@@ -19,8 +19,8 @@ class About extends StatelessWidget {
         child: RichText(
             text: const TextSpan(
           text: 'Status saver is an application that is '
-              'used to save into the gallery photos and videos from WhatsApp. '
-              'It was developed in November, 2022 by Bum-Ho Nisubire and currently deployed '
+              'used to save into the gallery photos and videos from WhatsApp. \n'
+              'It was developed in November, 2022 by Bum-Ho Nisubire and currently deployed \n'
               'as a prototype for users to get a feel of it and decide if it is best for them.',
         )),
       ),

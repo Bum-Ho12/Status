@@ -52,14 +52,15 @@ class _PicContainerState extends State<PicContainer> {
                           onSelect: () {},
                           child: const FaIcon(Icons.delete)),
                     ],
-                    child: InkWell(
-                      onTap: (() {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: ((context) =>
-                                    ImageLarge(image: widget.image))));
-                      }),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) =>
+                                  ImageLarge(image: widget.image))));
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
                       child: Image.asset(widget.image,
                           filterQuality: FilterQuality.high, fit: BoxFit.fill),
                     ),

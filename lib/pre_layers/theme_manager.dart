@@ -10,7 +10,7 @@ class ThemeClass {
       appBarTheme: const AppBarTheme(
         centerTitle: false,
         elevation: 0,
-        toolbarHeight: 120,
+        toolbarHeight: 60,
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Color(0xfF25D366), size: 15),
         actionsIconTheme: IconThemeData(color: Color(0xfF128C7E), size: 35),
@@ -35,7 +35,7 @@ class ThemeClass {
       appBarTheme: const AppBarTheme(
         centerTitle: false,
         elevation: 0,
-        toolbarHeight: 120,
+        toolbarHeight: 60,
         backgroundColor: Color(0xFF343434),
         iconTheme: IconThemeData(color: Color(0xfF128C7E)),
         actionsIconTheme: IconThemeData(color: Color(0xfF128C7E), size: 35),
